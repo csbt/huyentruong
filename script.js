@@ -16,7 +16,7 @@ const LOADING_LOTTIE_PATH = "public/json/loading.json";
 const SOUND_CONTROL_LOTTIE_PATH = "public/json/sound.json";
 const HEART_LOTTIE_PATH = "public/json/heart.json";
 const QR_CONTROL_LOTTIE_PATH = "public/json/qr.json";
-const MAIN_PHOTO_PATH = ["public/img/photo17.jpg", "public/img/photo01.jpg", "public/img/photo02.jpg"];
+const MAIN_PHOTO_PATH = ["public/img/compress/photo17.jpg", "public/img/compress/photo01.jpg", "public/img/compress/photo02.jpg"];
 
 // Variable
 const WAIT_SECONDS_SHOW_LADING_ANIMATION = 2000;
@@ -178,6 +178,20 @@ function checkQrSectionVisibility() {
   observer.observe(qrSection);
 }
 
+// Thêm sự kiện click cho nút QR để cuộn xuống section cuối
+function setupQrControlButton() {
+  const qrControlElement = document.getElementById('lottie-qr-control');
+  const slide4Element = document.getElementById('slide-4');
+  
+  qrControlElement.addEventListener('click', () => {
+    // Cuộn đến section slide-4 với hiệu ứng mượt mà
+    slide4Element.scrollIntoView({ behavior: 'smooth' });
+  });
+  
+  // Thêm cursor pointer để hiển thị rằng phần tử có thể click được
+  qrControlElement.style.cursor = 'pointer';
+}
+
 // Gọi hàm kiểm tra khi trang đã tải xong
 document.addEventListener("DOMContentLoaded", () => {
   preloadImages();
@@ -188,6 +202,9 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // Kiểm tra visibility của section QR
   checkQrSectionVisibility();
+  
+  // Thiết lập sự kiện click cho nút QR
+  setupQrControlButton();
   
   // gsap
   let getRatio = (el) => window.innerHeight / (window.innerHeight + el.offsetHeight);
