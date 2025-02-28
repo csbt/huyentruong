@@ -1,127 +1,434 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>T💋H - Xuân Trường ♥️ Khánh Huyền</title>
+    <meta property="og:title" content="T💋H - Xuân Trường ♥️ Khánh Huyền" />
+    <meta
+      property="og:description"
+      content="Lễ thành hôn 13:30 ngày 09/03/2025"
+    />
+    <meta property="og:image" content="public/img/compress/og-image.png" />
+    <!-- <meta property="og:url" content="URL_của_trang_web" /> -->
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="public/img/favicon.ico" />
+    <link rel="stylesheet" href="style.css" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>T💋H - Xuân Trường ♥️ Khánh Huyền</title>
-  <meta property="og:title" content="T💋H - Xuân Trường ♥️ Khánh Huyền" />
-  <meta property="og:description" content="Lễ thành hôn 13:30 ngày 09/03/2025" />
-  <meta property="og:image" content="public/img/compress/og-image.png" />
-  <!-- <meta property="og:url" content="URL_của_trang_web" /> -->
-  <meta property="og:type" content="website" />
-  <link rel="icon" href="public/img/favicon.ico">
-  <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
 
-  <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
-  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+    <!-- Thêm liên kết đến font Montserrat -->
+    <link
+      rel="stylesheet"
+      href="/public/font/Montserrat/static/montserrat.css"
+    />
+    <!-- Thêm liên kết đến font Great Vibes từ Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-  <!-- Thêm liên kết đến font Montserrat -->
-  <link rel="stylesheet" href="/public/font/Montserrat/static/montserrat.css">
-</head>
-
-<body>
-  <div class="lottie-container">
-    <div id="lottie-container-content">
-
+  <body>
+    <div class="petals-container" id="petals-container"></div>
+    <div class="lottie-container">
+      <div id="lottie-container-content"></div>
+      <div id="lottie-heart-container" class="lottie-container-heart"></div>
     </div>
-    <div id="lottie-heart-container" class="lottie-container-heart">
 
-    </div>
-  </div>
-
-  <div class="container">
-
-    <section class="hslider enable" id="slide-1">
-      <div class="bg" style="background-image:url('public/img/compress/photo17.jpg');"></div>
-      <div class="bg-overlay">
-        <div class="content-overlay">
-          <p class="m-0 p-0 c-beige fw-light lh-sm animateType" data-animate-loop="false" data-type-speed="100"
-            data-cursor-speed="600">From savoring the flavors that ignite your senses</p>
-        </div>
-      </div>
-    </section>
-    <section class="hslider enable" id="slide-2">
-      <div class="bg" style="background-image:url('public/img/compress/photo01.jpg');"></div>
-      <div class="bg-overlay">
-        <div class="content-overlay">
-          <p class="m-0 p-0 c-beige fw-light lh-sm animateType" data-animate-loop="false" data-type-speed="100"
-            data-cursor-speed="600">washed down with the most refreshing coffee</p>
-        </div>
-      </div>
-    </section>
-    <section class="hslider enable" id="slide-3">
-      <div class="bg" style="background-image:url('public/img/compress/photo02.jpg');"></div>
-      <div class="bg-overlay">
-        <div class="content-overlay">
-          <p class="m-0 p-0 c-beige fw-light lh-sm animateType" data-animate-loop="false" data-type-speed="100"
-            data-cursor-speed="600">to releasing your inner child</p>
-        </div>
-      </div>
-    </section>
-    <section class="hslider enable" id="slide-4">
-      <div class="bg" style="background-image:url('public/img/compress/photo12.jpg');"></div>
-      <div class="bg-overlay qr-slide">
-        <div class="content-overlay qr-content-overlay">
-          <div class="qr-header">
-            <h2>Hộp mừng cưới</h2>
-            <p class="mt-20">Quẹt nhẹ - Chúc phúc liền tay</p>
-            <p class="mt-10">Chia sẻ niềm vui cùng chúng tôi</p>
-          </div>
-          <div class="qr-wrapper">
-            <div class="qr-container">
-              <div class="qr-img-container">
-                <img src="public/img/groom-qr.png" alt="qr">
-              </div>
-              <div class="bank-info">
-                <p>Ngô Xuân Trường</p>
-                <p>0491000183537</p>
-                <p>Vietcombank</p>
-              </div>
-            </div>
-
-            <div class="qr-container">
-              <div class="qr-img-container">
-                <img src="public/img/bride-qr.png" alt="qr">
-              </div>
-              <div class="bank-info">
-                <p>Hoàng Thị Huyền</p>
-                <p>101099996789</p>
-                <p>Techcombank</p>
-              </div>
+    <div class="container">
+      <section class="hslider enable" id="slide-1">
+        <div
+          class="bg"
+          style="background-image: url('public/img/compress/photo17.jpg')"
+        ></div>
+        <div class="bg-overlay">
+          <div class="content-overlay">
+            <p
+              class="save-date great-vibes glow-text animateType"
+              data-animate-loop="false"
+              data-type-speed="100"
+              data-cursor-speed="600"
+            >
+              Save the Date
+            </p>
+            <h1
+              class="couple-names great-vibes glow-text animateType mt-20"
+              data-animate-loop="false"
+              data-type-speed="100"
+              data-cursor-speed="600"
+            >
+              Trường & Huyền
+            </h1>
+            <div class="countdown-container mt-20">
+              <div id="countdown" class="montserrat-medium glow-text"></div>
+              <p class="wedding-date-small montserrat-medium glow-text">
+                09/03/2025
+              </p>
             </div>
           </div>
-
-
         </div>
-      </div>
-      <div class="copyright-wrapper">
-        <span class="copyright">© 2025 Xuân Trường & Khánh Huyền Wedding's website.
-        </span>
-        <span class="copyright">
-          Made by Trường with ❤️ !
-        </span>
-      </div>
-    </section>
+      </section>
+      <section class="hslider enable" id="slide-2">
+        <div
+          class="bg"
+          style="background-image: url('public/img/compress/photo01.jpg')"
+        ></div>
+        <div class="bg-overlay">
+          <div class="content-overlay">
+            <h2
+              class="event-title great-vibes glow-text animateType"
+              data-animate-loop="false"
+              data-type-speed="100"
+              data-cursor-speed="600"
+            >
+              Sự Kiện Đặc Biệt
+            </h2>
+            <div class="calendar-container mt-20">
+              <div class="calendar-header">
+                <h3 class="month-year montserrat-medium">Tháng 3, 2025</h3>
+              </div>
+              <div class="weekdays">
+                <div>CN</div>
+                <div>T2</div>
+                <div>T3</div>
+                <div>T4</div>
+                <div>T5</div>
+                <div>T6</div>
+                <div>T7</div>
+              </div>
+              <div class="days">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div>1</div>
+                <div>2</div>
+                <div>3</div>
+                <div>4</div>
+                <div>5</div>
+                <div>6</div>
+                <div>7</div>
+                <div class="highlight pre-wedding">8</div>
+                <div class="highlight wedding-day">9</div>
+                <div>10</div>
+                <div>11</div>
+                <div>12</div>
+                <div>13</div>
+                <div>14</div>
+                <div>15</div>
+                <div>16</div>
+                <div>17</div>
+                <div>18</div>
+                <div>19</div>
+                <div>20</div>
+                <div>21</div>
+                <div>22</div>
+                <div>23</div>
+                <div>24</div>
+                <div>25</div>
+                <div>26</div>
+                <div>27</div>
+                <div>28</div>
+                <div>29</div>
+                <div>30</div>
+                <div>31</div>
+              </div>
+              <div class="event-legend mt-20">
+                <div class="legend-item">
+                  <span class="legend-color pre-wedding"></span>
+                  <span class="legend-text">08/03: Tiệc thân mật</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-color wedding-day"></span>
+                  <span class="legend-text">09/03: Lễ thành hôn</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="hslider enable" id="slide-location">
+        <div
+          class="bg"
+          style="background-image: url('public/img/compress/photo02.jpg')"
+        ></div>
+        <div class="bg-overlay">
+          <div class="content-overlay">
+            <h2
+              class="location-title great-vibes glow-text animateType"
+              data-animate-loop="false"
+              data-type-speed="100"
+              data-cursor-speed="600"
+            >
+              Địa Điểm Tổ Chức
+            </h2>
+            <div class="location-container-card mt-20">
+              <div class="location-header">
+                <h3 class="montserrat-medium great-vibes glow-text animateType">
+                  Lễ Thành Hôn
+                </h3>
+              </div>
+              <div class="location-items">
+                <div class="location-item">
+                  <div class="location-icon">
+                    <i class="location-pin"></i>
+                  </div>
+                  <h3 class="montserrat-semibold">Nhà Trai</h3>
+                  <p class="montserrat-medium mt-10">
+                    Thôn Quyết Thắng, xã Đồng Du, huyện Bình Lục, tỉnh Hà Nam
+                  </p>
+                  <div class="location-details mt-10">
+                    <div class="detail-item">
+                      <span class="detail-text">13:30 - 09/03/2025</span>
+                    </div>
+                  </div>
+                  <a
+                    href="https://maps.app.goo.gl/CrC1PboXfvWFWCdV9"
+                    target="_blank"
+                    class="map-button mt-10"
+                  >
+                    <span>Xem bản đồ</span>
+                  </a>
+                </div>
 
+                <div class="location-item">
+                  <div class="location-icon">
+                    <i class="location-pin"></i>
+                  </div>
+                  <h3 class="montserrat-semibold">Nhà Gái</h3>
+                  <p class="montserrat-medium mt-10">
+                    Thôn Trung, xã Quãng Nham, huyện Quảng Xương, tỉnh Thanh Hóa
+                  </p>
+                  <div class="location-details mt-10">
+                    <div class="detail-item">
+                      <span class="detail-text">09:00 - 09/03/2025</span>
+                    </div>
+                  </div>
+                  <a
+                    href="https://maps.app.goo.gl/UE3qwzp4aiGzJ6tH8"
+                    target="_blank"
+                    class="map-button mt-10"
+                  >
+                    <span>Xem bản đồ</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="hslider enable" id="slide-gallery">
+        <div
+          class="bg"
+          style="background-image: url('public/img/compress/photo12.jpg')"
+        ></div>
+        <div class="bg-overlay slide-gallery">
+          <div class="content-overlay">
+            <h2
+              class="gallery-title great-vibes glow-text animateType"
+              data-animate-loop="false"
+              data-type-speed="100"
+              data-cursor-speed="600"
+            >
+              Album Ảnh Cưới
+            </h2>
+            <div class="gallery-container mt-20">
+              <!-- Desktop layout - single image with hover effect -->
+              <div
+                class="main-gallery-image"
+                onclick="openModal();currentSlide(1)"
+              >
+                <img
+                  src="public/img/compress/photo01.jpg"
+                  alt="Wedding Photo"
+                />
+                <div class="gallery-overlay">
+                  <span class="view-album-text">Xem album</span>
+                </div>
+              </div>
 
+              <!-- Mobile layout - fan style images -->
+              <div class="fan-gallery">
+                <div class="fan-image" onclick="openModal();currentSlide(1)">
+                  <img
+                    src="public/img/compress/photo01.jpg"
+                    alt="Wedding Photo 1"
+                  />
+                </div>
+                <div class="fan-image" onclick="openModal();currentSlide(12)">
+                  <img
+                    src="public/img/compress/photo12.jpg"
+                    alt="Wedding Photo 5"
+                  />
+                </div>
+                <div class="fan-image" onclick="openModal();currentSlide(17)">
+                  <img
+                    src="public/img/compress/photo17.jpg"
+                    alt="Wedding Photo 17"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      <section class="hslider enable" id="slide-3">
+        <div
+          class="bg"
+          style="background-image: url('public/img/compress/photo02.jpg')"
+        ></div>
+        <div class="bg-overlay">
+          <div class="content-overlay">
+            <h2
+              class="thank-you-title great-vibes glow-text animateType"
+              data-animate-loop="false"
+              data-type-speed="100"
+              data-cursor-speed="600"
+            >
+              Lời Cảm Ơn
+            </h2>
+            <div class="thank-you-card mt-20">
+              <div class="thank-you-icon">
+                <svg
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.04L12 21.35Z"
+                    fill="#ffffff"
+                  />
+                </svg>
+              </div>
+              <div class="thank-you-content">
+                <p
+                  class="montserrat-medium glow-text animateType"
+                  data-animate-loop="false"
+                  data-type-speed="100"
+                  data-cursor-speed="600"
+                >
+                  Chúng tôi xin gửi lời cảm ơn chân thành đến quý vị và các bạn
+                  đã dành thời gian quý báu đến chung vui cùng chúng tôi trong
+                  ngày trọng đại này.
+                </p>
+                <p
+                  class="montserrat-medium glow-text animateType mt-10"
+                  data-animate-loop="false"
+                  data-type-speed="100"
+                  data-cursor-speed="600"
+                >
+                  Sự hiện diện và những lời chúc phúc của quý vị là niềm vinh
+                  hạnh, là món quà vô giá đối với chúng tôi trên hành trình hạnh
+                  phúc sắp tới.
+                </p>
+                <p
+                  class="montserrat-semibold glow-text animateType mt-20"
+                  data-animate-loop="false"
+                  data-type-speed="100"
+                  data-cursor-speed="600"
+                >
+                  Trân trọng!
+                </p>
+                <p
+                  class="couple-signature great-vibes glow-text animateType mt-10"
+                  data-animate-loop="false"
+                  data-type-speed="100"
+                  data-cursor-speed="600"
+                >
+                  Trường & Huyền
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="hslider enable" id="slide-4">
+        <div
+          class="bg"
+          style="background-image: url('public/img/compress/photo12.jpg')"
+        ></div>
+        <div class="bg-overlay qr-slide">
+          <div class="content-overlay qr-content-overlay">
+            <div class="qr-header">
+              <h2 class="qr-title great-vibes glow-text">Hộp mừng cưới</h2>
+              <p class="mt-20">Quẹt nhẹ nhàng - Chúc phúc liền tay</p>
+              <p class="mt-10">Chia sẻ niềm vui cùng chúng tôi</p>
+            </div>
+            <div class="qr-wrapper">
+              <div class="qr-container">
+                <div class="qr-img-container">
+                  <img src="public/img/groom-qr.png" alt="qr" />
+                </div>
+                <div class="bank-info">
+                  <p>Ngô Xuân Trường</p>
+                  <p>0491000183537</p>
+                  <p>Vietcombank</p>
+                </div>
+              </div>
 
-  </div>
-  <button class="audio-control-btn">
-    <div id="lottie-sound-control">
+              <div class="qr-container">
+                <div class="qr-img-container">
+                  <img src="public/img/bride-qr.png" alt="qr" />
+                </div>
+                <div class="bank-info">
+                  <p>Hoàng Thị Huyền</p>
+                  <p>101099996789</p>
+                  <p>Techcombank</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright-wrapper">
+          <span class="copyright"
+            >© 2025 Xuân Trường & Khánh Huyền Wedding's website.
+          </span>
+        </div>
+      </section>
     </div>
-  </button>
-  <div class="qr-control-btn">
-    <div id="lottie-qr-control">
+    <button class="audio-control-btn">
+      <div id="lottie-sound-control"></div>
+    </button>
+    <div class="qr-control-btn">
+      <div id="lottie-qr-control"></div>
     </div>
-  </div>
-  <div class="hidden">
-    <audio id="audio-control-elm" src="public/audio/ido-911.mp3" autoplay loop></audio>
-  </div>
-  <script src="script.js"></script>
-</body>
+    <div class="hidden">
+      <audio
+        id="audio-control-elm"
+        src="public/audio/ido-911.mp3"
+        autoplay
+        loop
+      ></audio>
+    </div>
+    <script src="script.js"></script>
 
+    <!-- The Modal/Lightbox -->
+    <div id="galleryModal" class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div class="modal-content">
+        <div class="slides-container"></div>
+
+        <!-- Navigation controls -->
+        <div class="navigation-controls">
+          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+          <div class="slide-number">1 / 17</div>
+          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+
+        <!-- Thumbnail navigation -->
+        <div class="thumbnail-row"></div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -16,7 +16,22 @@ const LOADING_LOTTIE_PATH = "public/json/loading.json";
 const SOUND_CONTROL_LOTTIE_PATH = "public/json/sound.json";
 const HEART_LOTTIE_PATH = "public/json/heart.json";
 const QR_CONTROL_LOTTIE_PATH = "public/json/qr.json";
-const MAIN_PHOTO_PATH = ["public/img/compress/photo17.jpg", "public/img/compress/photo01.jpg", "public/img/compress/photo02.jpg"];
+
+// Gallery Images Array
+const GALLERY_IMAGES = [
+  'public/img/compress/photo01.jpg',
+  'public/img/compress/photo02.jpg',
+  'public/img/compress/photo03.jpg',
+  'public/img/compress/photo09.jpg',
+  'public/img/compress/photo10.jpg',
+  'public/img/compress/photo11.jpg',
+  'public/img/compress/photo12.jpg',
+  'public/img/compress/photo13.jpg',
+  'public/img/compress/photo14.jpg',
+  'public/img/compress/photo15.jpg',
+  'public/img/compress/photo16.jpg',
+  'public/img/compress/photo17.jpg'
+];
 
 // Variable
 const WAIT_SECONDS_SHOW_LADING_ANIMATION = 2000;
@@ -24,7 +39,7 @@ let mainPhotoReady = false;
 let loadedImagesCount = 0;
 let audioControlLottieStatus = false;
 let hasUserInteracted = false;
-let animationFulled = false
+let animationFulled = true;
 
 const animation = lottie.loadAnimation({
   container: lottieContent,
@@ -86,9 +101,9 @@ audioControlLottie.addEventListener("DOMLoaded", () => {
 
 // Kiểm tra tải tất cả các ảnh chính
 function preloadImages() {
-  const totalImages = MAIN_PHOTO_PATH.length;
+  const totalImages = GALLERY_IMAGES.length;
 
-  MAIN_PHOTO_PATH.forEach((imagePath) => {
+  GALLERY_IMAGES.forEach((imagePath) => {
     const img = new Image();
     img.src = imagePath;
 
@@ -123,7 +138,9 @@ function preloadImages() {
 function checkAllResourcesReady() {
   if (mainPhotoReady && animationFulled) {
     // Thực hiện các hành động khi tất cả ảnh đã sẵn sàng
-    console.log("Tất cả tài nguyên đã sẵn sàng, có thể chuyển sang màn hình chính");
+    console.log(
+      "Tất cả tài nguyên đã sẵn sàng, có thể chuyển sang màn hình chính"
+    );
     // Thêm code để chuyển sang màn hình chính ở đây
     showMainContent();
   }
@@ -156,58 +173,62 @@ audioControlBtn.addEventListener("click", () => {
 
 // Thêm code để kiểm tra và ẩn nút QR khi section slide-4 đang active
 function checkQrSectionVisibility() {
-  const qrSection = document.getElementById('slide-4');
-  const qrControlBtn = document.querySelector('.qr-control-btn');
-  
+  const qrSection = document.getElementById("slide-4");
+  const qrControlBtn = document.querySelector(".qr-control-btn");
+
   // Sử dụng Intersection Observer để theo dõi khi slide-4 hiển thị trong viewport
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Nếu slide-4 đang hiển thị, ẩn nút QR
-        qrControlBtn.style.opacity = '0';
-        qrControlBtn.style.pointerEvents = 'none';
-      } else {
-        // Nếu slide-4 không hiển thị, hiện nút QR
-        qrControlBtn.style.opacity = '1';
-        qrControlBtn.style.pointerEvents = 'auto';
-      }
-    });
-  }, { threshold: 0.3 }); // Kích hoạt khi ít nhất 30% của section hiển thị
-  
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Nếu slide-4 đang hiển thị, ẩn nút QR
+          qrControlBtn.style.opacity = "0";
+          qrControlBtn.style.pointerEvents = "none";
+        } else {
+          // Nếu slide-4 không hiển thị, hiện nút QR
+          qrControlBtn.style.opacity = "1";
+          qrControlBtn.style.pointerEvents = "auto";
+        }
+      });
+    },
+    { threshold: 0.3 }
+  ); // Kích hoạt khi ít nhất 30% của section hiển thị
+
   // Bắt đầu quan sát section slide-4
   observer.observe(qrSection);
 }
 
 // Thêm sự kiện click cho nút QR để cuộn xuống section cuối
 function setupQrControlButton() {
-  const qrControlElement = document.getElementById('lottie-qr-control');
-  const slide4Element = document.getElementById('slide-4');
-  
-  qrControlElement.addEventListener('click', () => {
+  const qrControlElement = document.getElementById("lottie-qr-control");
+  const slide4Element = document.getElementById("slide-4");
+
+  qrControlElement.addEventListener("click", () => {
     // Cuộn đến section slide-4 với hiệu ứng mượt mà
-    slide4Element.scrollIntoView({ behavior: 'smooth' });
+    slide4Element.scrollIntoView({ behavior: "smooth" });
   });
-  
+
   // Thêm cursor pointer để hiển thị rằng phần tử có thể click được
-  qrControlElement.style.cursor = 'pointer';
+  qrControlElement.style.cursor = "pointer";
 }
 
 // Gọi hàm kiểm tra khi trang đã tải xong
 document.addEventListener("DOMContentLoaded", () => {
   preloadImages();
-  
+
   // Thêm transition cho qr-control-btn để tạo hiệu ứng mượt mà khi ẩn/hiện
-  const qrControlBtn = document.querySelector('.qr-control-btn');
-  qrControlBtn.style.transition = 'opacity 0.3s ease';
-  
+  const qrControlBtn = document.querySelector(".qr-control-btn");
+  qrControlBtn.style.transition = "opacity 0.3s ease";
+
   // Kiểm tra visibility của section QR
   checkQrSectionVisibility();
-  
+
   // Thiết lập sự kiện click cho nút QR
   setupQrControlButton();
-  
+
   // gsap
-  let getRatio = (el) => window.innerHeight / (window.innerHeight + el.offsetHeight);
+  let getRatio = (el) =>
+    window.innerHeight / (window.innerHeight + el.offsetHeight);
   let headings = gsap.utils.toArray("section.hslider .text-overlay p");
 
   gsap.utils.toArray("section.hslider").forEach((section, i) => {
@@ -222,12 +243,16 @@ document.addEventListener("DOMContentLoaded", () => {
       {
         backgroundPosition: () =>
           i
-            ? `${horizontalPosition} ${-window.innerHeight * getRatio(section)}px`
+            ? `${horizontalPosition} ${
+                -window.innerHeight * getRatio(section)
+              }px`
             : `${horizontalPosition} 0px`,
       },
       {
         backgroundPosition: () =>
-          `${horizontalPosition} ${window.innerHeight * (1 - getRatio(section))}px`,
+          `${horizontalPosition} ${
+            window.innerHeight * (1 - getRatio(section))
+          }px`,
         ease: "none",
         scrollTrigger: {
           trigger: section,
@@ -255,3 +280,284 @@ const handleUserInteraction = (e) => {
 ["click", "keydown", "mousemove"].forEach((event) => {
   document.addEventListener(event, () => handleUserInteraction(event));
 });
+
+// Initialize Gallery
+function initGallery() {
+  const slidesContainer = document.querySelector('.slides-container');
+  const thumbnailRow = document.querySelector('.thumbnail-row');
+  const slideNumber = document.querySelector('.slide-number');
+  
+  // Clear existing content
+  slidesContainer.innerHTML = '';
+  thumbnailRow.innerHTML = '';
+  
+  // Create slides and thumbnails from the array
+  GALLERY_IMAGES.forEach((image, index) => {
+    // Create slide
+    const slide = document.createElement('div');
+    slide.className = 'mySlides';
+    slide.style.display = index === 0 ? 'flex' : 'none';
+    
+    const img = document.createElement('img');
+    img.src = image;
+    slide.appendChild(img);
+    slidesContainer.appendChild(slide);
+    
+    // Create thumbnail
+    const thumbnail = document.createElement('div');
+    thumbnail.className = index === 0 ? 'thumbnail active' : 'thumbnail';
+    thumbnail.onclick = function() { currentSlide(index + 1); };
+    
+    const thumbImg = document.createElement('img');
+    thumbImg.src = image;
+    thumbnail.appendChild(thumbImg);
+    thumbnailRow.appendChild(thumbnail);
+  });
+  
+  // Update slide number
+  slideNumber.textContent = `1 / ${GALLERY_IMAGES.length}`;
+}
+
+// Call the gallery initialization when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+  initGallery();
+  initFanGallery();
+  // ... other existing code
+});
+
+// Initialize Fan Gallery
+function initFanGallery() {
+  const fanGallery = document.querySelector('.fan-gallery');
+  
+  // Clear existing content
+  fanGallery.innerHTML = '';
+  
+  // Select 3 images from the array for the fan gallery
+  const fanImages = [
+    { src: GALLERY_IMAGES[0], index: 1 },  // First image
+    { src: GALLERY_IMAGES[6], index: 7 },  // Middle image (photo12)
+    { src: GALLERY_IMAGES[GALLERY_IMAGES.length - 1], index: GALLERY_IMAGES.length }  // Last image
+  ];
+  
+  // Create fan images
+  fanImages.forEach((image, i) => {
+    const fanImage = document.createElement('div');
+    fanImage.className = 'fan-image';
+    
+    // Set the correct click handler with the proper index
+    fanImage.onclick = function() { 
+      openModal();
+      currentSlide(image.index);
+    };
+    
+    const img = document.createElement('img');
+    img.src = image.src;
+    img.alt = `Wedding Photo ${i + 1}`;
+    
+    fanImage.appendChild(img);
+    fanGallery.appendChild(fanImage);
+  });
+}
+
+// Call the fan gallery initialization when the page loads
+document.addEventListener("DOMContentLoaded", function () {
+  initFanGallery();
+  // ... other existing code
+});
+
+// Falling flower petals effect
+function createPetals() {
+  const petalsContainer = document.getElementById("petals-container");
+  const numberOfPetals = 30; // Adjust number of petals
+
+  for (let i = 0; i < numberOfPetals; i++) {
+    setTimeout(() => {
+      const petal = document.createElement("div");
+      const petalType = Math.floor(Math.random() * 2) + 1; // 2 different petal types (heart and cherry blossom)
+      
+      petal.classList.add("petal", `petal-${petalType}`);
+      
+      // Random size between 15px and 30px
+      const size = Math.random() * 15 + 15;
+      petal.style.width = `${size}px`;
+      petal.style.height = `${size}px`;
+      
+      // Random starting position
+      const startPositionX = Math.random() * window.innerWidth;
+      petal.style.left = `${startPositionX}px`;
+      petal.style.top = "-50px";
+      
+      // Random rotation
+      const rotation = Math.random() * 360;
+      petal.style.transform = `rotate(${rotation}deg)`;
+      
+      // Random falling duration between 10s and 20s
+      const fallingDuration = Math.random() * 10 + 10;
+      
+      // Apply animation
+      petal.style.animation = `
+        falling ${fallingDuration}s linear infinite,
+        rotating ${Math.random() * 5 + 5}s linear infinite,
+        sideMovement ${Math.random() * 5 + 3}s ease-in-out infinite alternate
+      `;
+      
+      // Add to container
+      petalsContainer.appendChild(petal);
+      
+      // Remove petal after animation to prevent memory issues
+      setTimeout(() => {
+        petal.remove();
+      }, fallingDuration * 1000);
+      
+    }, i * 300); // Stagger the creation of petals
+  }
+}
+
+// Add animations for the petals
+const style = document.createElement("style");
+style.textContent = `
+  @keyframes falling {
+    0% {
+      top: -50px;
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.7;
+    }
+    90% {
+      opacity: 0.7;
+    }
+    100% {
+      top: 100vh;
+      opacity: 0;
+    }
+  }
+  
+  @keyframes rotating {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes sideMovement {
+    0% {
+      margin-left: -50px;
+    }
+    100% {
+      margin-left: 50px;
+    }
+  }
+`;
+document.head.appendChild(style);
+
+// Start creating petals when the page is loaded
+document.addEventListener("DOMContentLoaded", () => {
+  createPetals();
+
+  // Continue creating petals at intervals
+  setInterval(createPetals, 15000); // Create new batch every 15 seconds
+});
+
+// Countdown Timer Function
+function initCountdown() {
+  // Set the wedding date - March 9, 2025
+  const weddingDate = new Date("March 9, 2025 13:30:00").getTime();
+
+  // Update the countdown every second
+  const countdownTimer = setInterval(function () {
+    // Get today's date and time
+    const now = new Date().getTime();
+
+    // Find the distance between now and the wedding date
+    const distance = weddingDate - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Display the result in the element with id="countdown"
+    document.getElementById("countdown").innerHTML = `
+      <div class="countdown-item">
+        <span class="countdown-number">${days}</span>
+        <span class="countdown-label">Ngày</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-number">${hours}</span>
+        <span class="countdown-label">Giờ</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-number">${minutes}</span>
+        <span class="countdown-label">Phút</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-number">${seconds}</span>
+        <span class="countdown-label">Giây</span>
+      </div>
+    `;
+
+    // If the countdown is over, display a message
+    if (distance < 0) {
+      clearInterval(countdownTimer);
+      document.getElementById("countdown").innerHTML = "Hạnh phúc viên mãn!";
+    }
+  }, 1000);
+}
+
+// Call the countdown function when the page loads
+document.addEventListener("DOMContentLoaded", function () {
+  initCountdown();
+  // ... other existing code
+});
+
+// Gallery Modal Functions
+function openModal() {
+  document.getElementById("galleryModal").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("galleryModal").style.display = "none";
+}
+
+let slideIndex = 1;
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let thumbnails = document.getElementsByClassName("thumbnail");
+  let slideNumber = document.querySelector(".slide-number");
+  
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  
+  // Update slide number
+  slideNumber.textContent = `${slideIndex} / ${slides.length}`;
+  
+  // Hide all slides
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  
+  // Remove active class from all thumbnails
+  for (i = 0; i < thumbnails.length; i++) {
+    thumbnails[i].className = thumbnails[i].className.replace(" active", "");
+  }
+  
+  // Show current slide and activate current thumbnail
+  slides[slideIndex-1].style.display = "flex";
+  thumbnails[slideIndex-1].className += " active";
+}
