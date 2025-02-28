@@ -5,114 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <style>
-    section.hslider {
-      position: relative;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden !important;
-    }
-
-    .bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-
-    .bg-overlay:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #484d31;
-      opacity: 0.5;
-      z-index: 1;
-    }
-
-    .text-overlay {
-      position: absolute;
-      width: 60%;
-      top: 50%;
-      transform: translateY(-60%);
-      left: 0;
-      right: 0;
-      margin-left: auto;
-      margin-right: auto;
-      color: #ffffff !important;
-      font-family: "Lora", serif;
-      z-index: 10;
-      text-shadow: 1px 1px #000000;
-      text-align: center;
-    }
-
-    .text-overlay p {
-      font-weight: bolder;
-      font-size: 32px !important;
-      font-family: "Lora", serif;
-      font-optical-sizing: auto;
-    }
-
-    .enable .animateType {
-      overflow: hidden;
-      /* Ensures the content is not revealed until the animation */
-      white-space: normal;
-      /* Keeps the content on a single line */
-      margin: 0 0;
-      /* Gives that scrolling effect as the typing happens */
-      letter-spacing: normal;
-      animation: smoothFadeIn 1.5s ease-out 1 both;
-    }
-  </style>
-
 </head>
 
-<body>
-  
+<body style="margin: 0; padding: 0; height: 100vh; width: 100vw;">
+  <iframe src="https://longs2trang.vercel.app/" width="100%" height="100%"></iframe>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function (event) {
-      let getRatio = (el) =>
-        window.innerHeight / (window.innerHeight + el.offsetHeight);
-      let headings = gsap.utils.toArray("section.hslider .text-overlay p");
-
-      gsap.utils.toArray("section.hslider").forEach((section, i) => {
-        section.bg = section.querySelector(".bg");
-        gsap.fromTo(
-          section.bg,
-          {
-            backgroundPosition: () =>
-              i ? `50% ${-window.innerHeight * getRatio(section)}px` : "50% 0px"
-          },
-          {
-            backgroundPosition: () =>
-              `50% ${window.innerHeight * (1 - getRatio(section))}px`,
-            ease: "none",
-            scrollTrigger: {
-              trigger: section,
-              start: () => (i ? "top bottom" : "top top"),
-              end: "bottom top",
-              scrub: true,
-              invalidateOnRefresh: true,
-              toggleActions: "play play play play",
-              toggleClass: { targets: section, className: "enable" },
-              markers: false
-            }
-          }
-        );
-      });
-    });
-
-  </script>
 </body>
 
 </html>

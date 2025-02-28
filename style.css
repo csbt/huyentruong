@@ -1,3 +1,6 @@
+html {
+  scroll-behavior: smooth; /* Add smooth scroll for the whole page */
+}
 * {
   margin: 0;
   padding: 0;
@@ -7,6 +10,7 @@
 body {
   background-color: #111111;
   position: relative;
+  font-family: "Montserrat", sans-serif;
 }
 
 .container {
@@ -23,14 +27,24 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 1001;
   background-color: #111111;
+}
+
+.lottie-container-heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  transform: translate(-50%, -50%);
+  z-index: 100;
 }
 
 #lottie-container-content {
   width: 100%;
   height: 100%;
-  transform: translateY(-130px);
+  /* transform: translateY(-130px); */
 }
 
 .photo-container {
@@ -59,6 +73,45 @@ body {
   transform: translateY(-100%);
   transition: all 1s ease-in-out;
   opacity: 0.3;
+}
+
+.audio-control-btn {
+  position: fixed;
+  top: 100vh;
+  left: 25px;
+  z-index: 100;
+  background-color: transparent;
+  cursor: pointer;
+  border: 1px solid color-mix(in srgb, currentcolor 20%, transparent);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 6px;
+  transform: translateY(-200%);
+}
+
+.qr-control-btn {
+  position: fixed;
+  top: 100vh;
+  right: 25px;
+  z-index: 100;
+  background-color: transparent;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  transform: translateY(-150%);
+  overflow: hidden;
+  border-radius: 8px;
+  transition: opacity 0.3s ease;
+}
+
+#lottie-qr-control {
+  scale: 2;
+  display: block;
+}
+
+.hidden {
+  display: none;
 }
 
 /* scroll */
@@ -95,29 +148,32 @@ section.hslider {
   opacity: 0.4;
   z-index: 1;
 }
+.bg-overlay.qr-slide:before {
+  opacity: 0.9;
+}
 
 .content-overlay {
   position: absolute;
-  width: 60%;
+  width: 100%;
   top: 50%;
   transform: translateY(-60%);
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
+  padding: 0 20px;
   color: #ffffff !important;
-  font-family: "Lora", serif;
+  font-family: "Montserrat", serif;
   z-index: 10;
   text-shadow: 1px 1px #000000;
   text-align: center;
 }
 
-.content-overlay p {
-  font-weight: bolder;
-  font-size: 32px !important;
-  font-family: "Lora", serif;
+/* .content-overlay p {
+  font-size: 18px !important;
+  font-family: 'Montserrat', serif;
   font-optical-sizing: auto;
-}
+} */
 
 .enable .animateType {
   overflow: hidden;
@@ -128,4 +184,122 @@ section.hslider {
   /* Gives that scrolling effect as the typing happens */
   letter-spacing: normal;
   animation: smoothFadeIn 1.5s ease-out 1 both;
+}
+.qr-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.qr-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex: 1;
+}
+.qr-img-container {
+  border-radius: 10px;
+  width: 100%;
+  overflow: hidden;
+}
+.qr-img-container img {
+  width: 90%;
+  object-fit: contain;
+}
+
+.qr-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.bank-info {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* Thêm class cho các phần tử sử dụng font Montserrat */
+.montserrat-thin {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+}
+
+.montserrat-light {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+}
+
+.montserrat-regular {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+}
+
+.montserrat-medium {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+
+.montserrat-semibold {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+
+.montserrat-bold {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+.montserrat-black {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+.copyright-wrapper {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.copyright {
+  font-size: 10px;
+  font-weight: 400;
+  color: #ffffff;
 }

@@ -4,13 +4,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Xuân Trường 💋 Khánh Huyền</title>
+  <title>T💋H - Xuân Trường ♥️ Khánh Huyền</title>
+  <link rel="icon" href="public/img/favicon.ico">
   <link rel="stylesheet" href="style.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 
   <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
   <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+  <!-- Thêm liên kết đến font Montserrat -->
+  <link rel="stylesheet" href="/public/font/Montserrat/static/montserrat.css">
 </head>
 
 <body>
@@ -18,12 +22,15 @@
     <div id="lottie-container-content">
 
     </div>
+    <div id="lottie-heart-container" class="lottie-container-heart">
+
+    </div>
   </div>
 
   <div class="container">
+
     <section class="hslider enable" id="slide-1">
-      <div class="bg"
-        style="background-image:url('public/img/photo1.jpg');"></div>
+      <div class="bg" style="background-image:url('public/img/photo17.jpg');"></div>
       <div class="bg-overlay">
         <div class="content-overlay">
           <p class="m-0 p-0 c-beige fw-light lh-sm animateType" data-animate-loop="false" data-type-speed="100"
@@ -32,8 +39,7 @@
       </div>
     </section>
     <section class="hslider enable" id="slide-2">
-      <div class="bg"
-        style="background-image:url('public/img/photo2.jpg');"></div>
+      <div class="bg" style="background-image:url('public/img/photo01.jpg');"></div>
       <div class="bg-overlay">
         <div class="content-overlay">
           <p class="m-0 p-0 c-beige fw-light lh-sm animateType" data-animate-loop="false" data-type-speed="100"
@@ -42,8 +48,7 @@
       </div>
     </section>
     <section class="hslider enable" id="slide-3">
-      <div class="bg"
-        style="background-image:url('public/img/photo3.jpg');"></div>
+      <div class="bg" style="background-image:url('public/img/photo02.jpg');"></div>
       <div class="bg-overlay">
         <div class="content-overlay">
           <p class="m-0 p-0 c-beige fw-light lh-sm animateType" data-animate-loop="false" data-type-speed="100"
@@ -51,6 +56,65 @@
         </div>
       </div>
     </section>
+    <section class="hslider enable" id="slide-4">
+      <div class="bg" style="background-image:url('public/img/photo12.jpg');"></div>
+      <div class="bg-overlay qr-slide">
+        <div class="content-overlay qr-content-overlay">
+          <div class="qr-header">
+            <h2>Hộp mừng cưới</h2>
+            <p class="mt-20">Quẹt nhẹ - Chúc phúc liền tay</p>
+            <p class="mt-10">Chia sẻ niềm vui cùng chúng tôi</p>
+          </div>
+          <div class="qr-wrapper">
+            <div class="qr-container">
+              <div class="qr-img-container">
+                <img src="public/img/groom-qr.png" alt="qr">
+              </div>
+              <div class="bank-info">
+                <p>Ngô Xuân Trường</p>
+                <p>0491000183537</p>
+                <p>Vietcombank</p>
+              </div>
+            </div>
+
+            <div class="qr-container">
+              <div class="qr-img-container">
+                <img src="public/img/bride-qr.png" alt="qr">
+              </div>
+              <div class="bank-info">
+                <p>Hoàng Thị Huyền</p>
+                <p>101099996789</p>
+                <p>Techcombank</p>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      <div class="copyright-wrapper">
+        <span class="copyright">© 2025 Xuân Trường & Khánh Huyền Wedding's website.
+        </span>
+        <span class="copyright">
+          Made by Trường with ❤️ !
+        </span>
+      </div>
+    </section>
+
+
+
+
+  </div>
+  <button class="audio-control-btn">
+    <div id="lottie-sound-control">
+    </div>
+  </button>
+  <div class="qr-control-btn">
+    <a id="lottie-qr-control" href="#slide-4">
+    </a>
+  </div>
+  <div class="hidden">
+    <audio id="audio-control-elm" src="public/audio/ido-911.mp3" autoplay loop></audio>
   </div>
   <script src="script.js"></script>
 </body>
