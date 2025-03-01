@@ -238,8 +238,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let horizontalPosition = "53%";
     if (i === 1) {
-      horizontalPosition = "60%";
+      horizontalPosition = "65%";
     } else if (i === 3) {
+      horizontalPosition = "70%";
+    }else if (i === 4) {
       horizontalPosition = "80%";
     }
     gsap.fromTo(
