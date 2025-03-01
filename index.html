@@ -178,7 +178,9 @@
               </div>
               <div class="location-items">
                 <div class="location-item">
-                  <h3 class="great-vibes glow-text animateType font-size-22">Nhà Trai</h3>
+                  <h3 class="great-vibes glow-text animateType font-size-22">
+                    Nhà Trai
+                  </h3>
                   <p class="montserrat-light mt-10">
                     Thôn Quyết Thắng, xã Đồng Du, huyện Bình Lục, tỉnh Hà Nam
                   </p>
@@ -192,12 +194,14 @@
                     target="_blank"
                     class="map-button mt-10"
                   >
-                    <span >Xem bản đồ</span>
+                    <span>Xem bản đồ</span>
                   </a>
                 </div>
 
                 <div class="location-item">
-                  <h3 class="great-vibes glow-text animateType font-size-22">Nhà Gái</h3>
+                  <h3 class="great-vibes glow-text animateType font-size-22">
+                    Nhà Gái
+                  </h3>
                   <p class="montserrat-light mt-10">
                     Thôn Trung, xã Quãng Nham, huyện Quảng Xương, tỉnh Thanh Hóa
                   </p>
@@ -411,17 +415,34 @@
     <div id="galleryModal" class="modal">
       <span class="close" onclick="closeModal()">&times;</span>
       <div class="modal-content">
-        <div class="slides-container"></div>
-
-        <!-- Navigation controls -->
-        <div class="navigation-controls">
-          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-          <div class="slide-number">1 / 17</div>
-          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        <div class="slides-container">
+          <!-- Slides will be added here by JavaScript -->
+          
+          <!-- Navigation controls -->
+          <div class="navigation-controls">
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <div class="slide-number">1 / 15</div>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+          </div>
         </div>
 
         <!-- Thumbnail navigation -->
         <div class="thumbnail-row"></div>
+      </div>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div id="qrModal" class="modal qr-modal">
+      <span class="close" onclick="closeQrModal()">&times;</span>
+      <div class="modal-content qr-modal-content">
+        <div class="qr-modal-container">
+          <img id="qrModalImage" src="" alt="QR Code" />
+          <div class="qr-modal-info">
+            <p id="qrModalName" class="qr-modal-name"></p>
+            <p id="qrModalAccount" class="qr-modal-account"></p>
+            <p id="qrModalBank" class="qr-modal-bank"></p>
+          </div>
+        </div>
       </div>
     </div>
   </body>

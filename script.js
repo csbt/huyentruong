@@ -521,13 +521,33 @@ document.addEventListener("DOMContentLoaded", function () {
   // ... other existing code
 });
 
-// Gallery Modal Functions
+// Gallery Modal Functions with Animation
 function openModal() {
-  document.getElementById("galleryModal").style.display = "block";
+  const modal = document.getElementById("galleryModal");
+  modal.style.display = "block";
+  
+  // Trigger reflow to ensure transition works
+  void modal.offsetWidth;
+  
+  // Add show class to trigger animations
+  modal.classList.add("show");
+  
+  // Prevent body scrolling when modal is open
+  document.body.style.overflow = "hidden";
 }
 
 function closeModal() {
-  document.getElementById("galleryModal").style.display = "none";
+  const modal = document.getElementById("galleryModal");
+  
+  // Remove show class to trigger closing animations
+  modal.classList.remove("show");
+  
+  // Wait for animation to complete before hiding
+  setTimeout(() => {
+    modal.style.display = "none";
+    // Restore body scrolling
+    document.body.style.overflow = "";
+  }, 300);
 }
 
 let slideIndex = 1;
@@ -588,3 +608,100 @@ function showSlides(n) {
     });
   }
 }
+
+// QR Modal Functions with Animation
+function openQrModal(imgSrc, name, account, bank) {
+  const qrModal = document.getElementById("qrModal");
+  const qrModalImage = document.getElementById("qrModalImage");
+  const qrModalName = document.getElementById("qrModalName");
+  const qrModalAccount = document.getElementById("qrModalAccount");
+  const qrModalBank = document.getElementById("qrModalBank");
+  
+  // Set the image and info
+  qrModalImage.src = imgSrc;
+  qrModalName.textContent = name;
+  qrModalAccount.textContent = account;
+  qrModalBank.textContent = bank;
+  
+  // Display the modal
+  qrModal.style.display = "flex";
+  
+  // Trigger reflow to ensure transition works
+  void qrModal.offsetWidth;
+  
+  // Add show class to trigger animations
+  qrModal.classList.add("show");
+  
+  // Prevent body scrolling when modal is open
+  document.body.style.overflow = "hidden";
+}
+
+function closeQrModal() {
+  const qrModal = document.getElementById("qrModal");
+  
+  // Remove show class to trigger closing animations
+  qrModal.classList.remove("show");
+  
+  // Wait for animation to complete before hiding
+  setTimeout(() => {
+    qrModal.style.display = "none";
+    // Restore body scrolling
+    document.body.style.overflow = "";
+  }, 300);
+}
+
+// Close modal when clicking outside of it
+window.onclick = function(event) {
+  const qrModal = document.getElementById("qrModal");
+  const galleryModal = document.getElementById("galleryModal");
+  
+  if (event.target === qrModal) {
+    closeQrModal();
+  }
+  
+  if (event.target === galleryModal) {
+    closeModal();
+  }
+};
+
+// Add click event listeners to QR images
+document.addEventListener("DOMContentLoaded", function() {
+  // Groom QR
+  const groomQrContainer = document.querySelector(".qr-container:nth-child(1) .qr-img-container");
+  groomQrContainer.addEventListener("click", function() {
+    openQrModal(
+      "public/img/groom-qr.png", 
+      "Ngô Xuân Trường", 
+      "0491000183537", 
+      "Vietcombank"
+    );
+  });
+  
+  // Bride QR
+  const brideQrContainer = document.querySelector(".qr-container:nth-child(2) .qr-img-container");
+  brideQrContainer.addEventListener("click", function() {
+    openQrModal(
+      "public/img/bride-qr.png", 
+      "Hoàng Thị Huyền", 
+      "101099996789", 
+      "Techcombank"
+    );
+  });
+});
+
+// Add keyboard support for closing modals
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    // Check if either modal is open
+    const qrModal = document.getElementById("qrModal");
+    const galleryModal = document.getElementById("galleryModal");
+    
+    if (qrModal.style.display === "block") {
+      closeQrModal();
+    }
+    
+    if (galleryModal.style.display === "block") {
+      closeModal();
+    }
+  }
+});
