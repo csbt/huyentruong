@@ -19,18 +19,21 @@ const QR_CONTROL_LOTTIE_PATH = "public/json/qr.json";
 
 // Gallery Images Array
 const GALLERY_IMAGES = [
-  'public/img/compress/photo01.jpg',
-  'public/img/compress/photo02.jpg',
-  'public/img/compress/photo03.jpg',
-  'public/img/compress/photo09.jpg',
-  'public/img/compress/photo10.jpg',
-  'public/img/compress/photo11.jpg',
-  'public/img/compress/photo12.jpg',
-  'public/img/compress/photo13.jpg',
-  'public/img/compress/photo14.jpg',
-  'public/img/compress/photo15.jpg',
-  'public/img/compress/photo16.jpg',
-  'public/img/compress/photo17.jpg'
+  "public/img/compress/photo112.jpg",
+  "public/img/compress/photo110.jpg",
+  "public/img/compress/photo111.jpg",
+  "public/img/compress/photo03.jpg",
+  "public/img/compress/photo11.jpg",
+  "public/img/compress/photo12.jpg",
+  "public/img/compress/photo01.jpg",
+  "public/img/compress/photo02.jpg",
+  "public/img/compress/photo13.jpg",
+  "public/img/compress/photo14.jpg",
+  "public/img/compress/photo15.jpg",
+  "public/img/compress/photo16.jpg",
+  "public/img/compress/photo17.jpg",
+  "public/img/compress/photo18.jpg",
+  "public/img/compress/photo19.jpg",
 ];
 
 // Variable
@@ -39,7 +42,7 @@ let mainPhotoReady = false;
 let loadedImagesCount = 0;
 let audioControlLottieStatus = false;
 let hasUserInteracted = false;
-let animationFulled = true;
+let animationFulled = false;
 
 const animation = lottie.loadAnimation({
   container: lottieContent,
@@ -237,6 +240,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let horizontalPosition = "53%";
     if (i === 1) {
       horizontalPosition = "60%";
+    } else if (i === 3) {
+      horizontalPosition = "80%";
     }
     gsap.fromTo(
       section.bg,
@@ -283,43 +288,45 @@ const handleUserInteraction = (e) => {
 
 // Initialize Gallery
 function initGallery() {
-  const slidesContainer = document.querySelector('.slides-container');
-  const thumbnailRow = document.querySelector('.thumbnail-row');
-  const slideNumber = document.querySelector('.slide-number');
-  
+  const slidesContainer = document.querySelector(".slides-container");
+  const thumbnailRow = document.querySelector(".thumbnail-row");
+  const slideNumber = document.querySelector(".slide-number");
+
   // Clear existing content
-  slidesContainer.innerHTML = '';
-  thumbnailRow.innerHTML = '';
-  
+  slidesContainer.innerHTML = "";
+  thumbnailRow.innerHTML = "";
+
   // Create slides and thumbnails from the array
   GALLERY_IMAGES.forEach((image, index) => {
     // Create slide
-    const slide = document.createElement('div');
-    slide.className = 'mySlides';
-    slide.style.display = index === 0 ? 'flex' : 'none';
-    
-    const img = document.createElement('img');
+    const slide = document.createElement("div");
+    slide.className = "mySlides";
+    slide.style.display = index === 0 ? "flex" : "none";
+
+    const img = document.createElement("img");
     img.src = image;
     slide.appendChild(img);
     slidesContainer.appendChild(slide);
-    
+
     // Create thumbnail
-    const thumbnail = document.createElement('div');
-    thumbnail.className = index === 0 ? 'thumbnail active' : 'thumbnail';
-    thumbnail.onclick = function() { currentSlide(index + 1); };
-    
-    const thumbImg = document.createElement('img');
+    const thumbnail = document.createElement("div");
+    thumbnail.className = index === 0 ? "thumbnail active" : "thumbnail";
+    thumbnail.onclick = function () {
+      currentSlide(index + 1);
+    };
+
+    const thumbImg = document.createElement("img");
     thumbImg.src = image;
     thumbnail.appendChild(thumbImg);
     thumbnailRow.appendChild(thumbnail);
   });
-  
+
   // Update slide number
   slideNumber.textContent = `1 / ${GALLERY_IMAGES.length}`;
 }
 
 // Call the gallery initialization when the page loads
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
   initGallery();
   initFanGallery();
   // ... other existing code
@@ -327,33 +334,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Initialize Fan Gallery
 function initFanGallery() {
-  const fanGallery = document.querySelector('.fan-gallery');
-  
+  const fanGallery = document.querySelector(".fan-gallery");
+
   // Clear existing content
-  fanGallery.innerHTML = '';
-  
+  fanGallery.innerHTML = "";
+
   // Select 3 images from the array for the fan gallery
   const fanImages = [
-    { src: GALLERY_IMAGES[0], index: 1 },  // First image
-    { src: GALLERY_IMAGES[6], index: 7 },  // Middle image (photo12)
-    { src: GALLERY_IMAGES[GALLERY_IMAGES.length - 1], index: GALLERY_IMAGES.length }  // Last image
+    { src: GALLERY_IMAGES[6], index: 7 }, // First image
+    { src: GALLERY_IMAGES[4], index: 5 }, // Middle image
+    { src: GALLERY_IMAGES[0], index: 1 }, // Last image
   ];
-  
+
   // Create fan images
   fanImages.forEach((image, i) => {
-    const fanImage = document.createElement('div');
-    fanImage.className = 'fan-image';
-    
+    const fanImage = document.createElement("div");
+    fanImage.className = "fan-image";
+
     // Set the correct click handler with the proper index
-    fanImage.onclick = function() { 
+    fanImage.onclick = function () {
       openModal();
       currentSlide(image.index);
     };
-    
-    const img = document.createElement('img');
+
+    const img = document.createElement("img");
     img.src = image.src;
     img.alt = `Wedding Photo ${i + 1}`;
-    
+
     fanImage.appendChild(img);
     fanGallery.appendChild(fanImage);
   });
@@ -374,41 +381,40 @@ function createPetals() {
     setTimeout(() => {
       const petal = document.createElement("div");
       const petalType = Math.floor(Math.random() * 2) + 1; // 2 different petal types (heart and cherry blossom)
-      
+
       petal.classList.add("petal", `petal-${petalType}`);
-      
+
       // Random size between 15px and 30px
       const size = Math.random() * 15 + 15;
       petal.style.width = `${size}px`;
       petal.style.height = `${size}px`;
-      
+
       // Random starting position
       const startPositionX = Math.random() * window.innerWidth;
       petal.style.left = `${startPositionX}px`;
       petal.style.top = "-50px";
-      
+
       // Random rotation
       const rotation = Math.random() * 360;
       petal.style.transform = `rotate(${rotation}deg)`;
-      
+
       // Random falling duration between 10s and 20s
       const fallingDuration = Math.random() * 10 + 10;
-      
+
       // Apply animation
       petal.style.animation = `
         falling ${fallingDuration}s linear infinite,
         rotating ${Math.random() * 5 + 5}s linear infinite,
         sideMovement ${Math.random() * 5 + 3}s ease-in-out infinite alternate
       `;
-      
+
       // Add to container
       petalsContainer.appendChild(petal);
-      
+
       // Remove petal after animation to prevent memory issues
       setTimeout(() => {
         petal.remove();
       }, fallingDuration * 1000);
-      
     }, i * 300); // Stagger the creation of petals
   }
 }
@@ -528,36 +534,58 @@ function closeModal() {
 let slideIndex = 1;
 
 function plusSlides(n) {
-  showSlides(slideIndex += n);
+  showSlides((slideIndex += n));
 }
 
 function currentSlide(n) {
-  showSlides(slideIndex = n);
+  showSlides((slideIndex = n));
 }
 
 function showSlides(n) {
   let i;
   let slides = document.getElementsByClassName("mySlides");
   let thumbnails = document.getElementsByClassName("thumbnail");
+  let thumbnailRow = document.querySelector(".thumbnail-row");
   let slideNumber = document.querySelector(".slide-number");
-  
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  
+
+  if (n > slides.length) {
+    slideIndex = 1;
+  }
+  if (n < 1) {
+    slideIndex = slides.length;
+  }
+
   // Update slide number
   slideNumber.textContent = `${slideIndex} / ${slides.length}`;
-  
+
   // Hide all slides
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
   }
-  
+
   // Remove active class from all thumbnails
   for (i = 0; i < thumbnails.length; i++) {
     thumbnails[i].className = thumbnails[i].className.replace(" active", "");
   }
-  
+
   // Show current slide and activate current thumbnail
-  slides[slideIndex-1].style.display = "flex";
-  thumbnails[slideIndex-1].className += " active";
+  slides[slideIndex - 1].style.display = "flex";
+  thumbnails[slideIndex - 1].className += " active";
+  
+  // Scroll to the active thumbnail
+  if (thumbnailRow) {
+    const activeThumb = thumbnails[slideIndex - 1];
+    const rowWidth = thumbnailRow.offsetWidth;
+    const thumbLeft = activeThumb.offsetLeft;
+    const thumbWidth = activeThumb.offsetWidth;
+    
+    // Calculate scroll position to center the thumbnail
+    const scrollPos = thumbLeft - (rowWidth / 2) + (thumbWidth / 2);
+    
+    // Scroll the thumbnail row
+    thumbnailRow.scrollTo({
+      left: scrollPos,
+      behavior: 'smooth'
+    });
+  }
 }
