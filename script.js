@@ -232,7 +232,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // gsap
   let getRatio = (el) =>
     window.innerHeight / (window.innerHeight + el.offsetHeight);
-  let headings = gsap.utils.toArray("section.hslider .text-overlay p");
 
   gsap.utils.toArray("section.hslider").forEach((section, i) => {
     section.bg = section.querySelector(".bg");
