@@ -281,7 +281,7 @@ const handleUserInteraction = (e) => {
     audioControlLottie.play();
   }
 };
-["click", "keydown", "mousemove"].forEach((event) => {
+["click", "keydown"].forEach((event) => {
   document.addEventListener(event, () => handleUserInteraction(event));
 });
 
