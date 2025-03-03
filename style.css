@@ -1573,3 +1573,42 @@ p {
   background-color: rgba(52, 152, 219, 0.1);
   border: 1px solid rgba(52, 152, 219, 0.3);
 }
+
+/* Number input styles */
+.rsvp-form input[type="number"] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.rsvp-form input[type="number"]:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Remove spinner buttons for number input in some browsers */
+.rsvp-form input[type="number"]::-webkit-inner-spin-button,
+.rsvp-form input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.rsvp-form input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+/* Input hint text */
+.input-hint {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+}

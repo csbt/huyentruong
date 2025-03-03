@@ -940,3 +940,17 @@ window.addEventListener("click", function (event) {
     closeRsvpModal();
   }
 });
+
+// Add validation for guest count
+const guestCountInput = document.getElementById('guestCount');
+
+guestCountInput.addEventListener('input', function(e) {
+  // Ensure the value is a positive number
+  let value = parseInt(e.target.value);
+  
+  if (isNaN(value) || value < 1) {
+    e.target.value = 1;
+  } else if (value > 100) { // Set a reasonable upper limit
+    e.target.value = 100;
+  }
+});
