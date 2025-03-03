@@ -761,10 +761,6 @@ function setupRSVPForm() {
       // Mark as submitted in localStorage
       localStorage.setItem('rsvpSubmitted', 'true');
       
-      // Show success message
-      formStatus.textContent = 'Cảm ơn bạn đã xác nhận tham dự!';
-      formStatus.className = 'form-status success';
-      
       // Show success state
       showSuccessState();
       
