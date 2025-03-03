@@ -273,6 +273,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
   });
+
+  // Setup RSVP form
+  setupRSVPForm();
 });
 
 const handleUserInteraction = (e) => {
@@ -611,5 +614,346 @@ document.addEventListener('keydown', function(event) {
     if (galleryModal.style.display === "block") {
       closeModal();
     }
+  }
+});
+
+// RSVP Modal Functions
+function openRsvpModal() {
+  const rsvpModal = document.getElementById("rsvpModal");
+  rsvpModal.style.display = "block";
+  
+  // Add show class for animation
+  setTimeout(() => {
+    rsvpModal.classList.add("show");
+    
+    // Auto focus on fullName input after modal is shown
+    setTimeout(() => {
+      document.getElementById('fullName').focus();
+    }, 300);
+  }, 10);
+  
+  // Prevent body scrolling
+  document.body.style.overflow = "hidden";
+}
+
+function closeRsvpModal() {
+  const rsvpModal = document.getElementById("rsvpModal");
+  rsvpModal.classList.remove("show");
+  
+  // Wait for animation to complete before hiding
+  setTimeout(() => {
+    rsvpModal.style.display = "none";
+    // Restore body scrolling
+    document.body.style.overflow = "";
+  }, 300);
+}
+
+// Update setupRSVPForm function
+function setupRSVPForm() {
+  const form = document.getElementById('rsvpForm');
+  const formStatus = document.getElementById('formStatus');
+  const formSuccess = document.getElementById('formSuccess');
+  const resetFormBtn = document.getElementById('resetFormBtn');
+  const submitBtn = document.getElementById('submitBtn');
+  const openRsvpBtn = document.getElementById('openRsvpBtn');
+  const sectionRsvpBtns = document.querySelectorAll('.section-rsvp-btn');
+  const phoneInput = document.getElementById('phone');
+  
+  // Setup phone input validation
+  phoneInput.addEventListener('input', function(e) {
+    // Remove any non-digit characters
+    let value = e.target.value.replace(/\D/g, '');
+    
+    // Ensure it starts with 0
+    if (value.length > 0 && value[0] !== '0') {
+      value = '0' + value.substring(0, 9);
+    }
+    
+    // Limit to 10 digits (Vietnamese phone numbers)
+    if (value.length > 10) {
+      value = value.substring(0, 10);
+    }
+    
+    // Update the input value
+    e.target.value = value;
+    
+    // Validate the pattern
+    const isValid = /^0\d{9}$/.test(value);
+    
+    // Visual feedback
+    if (value.length > 0) {
+      if (isValid) {
+        phoneInput.classList.remove('invalid');
+        phoneInput.classList.add('valid');
+      } else {
+        phoneInput.classList.remove('valid');
+        phoneInput.classList.add('invalid');
+      }
+    } else {
+      phoneInput.classList.remove('valid', 'invalid');
+    }
+  });
+  
+  // Check if user has already submitted the form
+  const hasSubmitted = localStorage.getItem('rsvpSubmitted');
+  if (hasSubmitted === 'true') {
+    // Update all buttons text and class if already submitted
+    updateAllRsvpButtons(true);
+    
+    // Show success message but don't disable form
+    formSuccess.classList.remove('hidden');
+    
+    // Hide submit button when showing success message
+    submitBtn.style.display = 'none';
+    
+    // Restore form data from localStorage
+    restoreFormData();
+  }
+  
+  // Setup open modal button
+  openRsvpBtn.addEventListener('click', openRsvpModal);
+  
+  // Handle form submission
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Validate phone number
+    const phoneInput = document.getElementById('phone');
+    const phoneValue = phoneInput.value;
+    const isValidPhone = /^0\d{9}$/.test(phoneValue);
+    
+    if (!isValidPhone) {
+      formStatus.textContent = 'Vui lòng nhập số điện thoại Việt Nam hợp lệ (10 số, bắt đầu bằng số 0)';
+      formStatus.className = 'form-status error';
+      phoneInput.focus();
+      return;
+    }
+    
+    // Check if the form data is the same as previously submitted
+    if (hasSubmitted === 'true' && isFormDataUnchanged()) {
+      formStatus.textContent = 'Thông tin không thay đổi so với lần gửi trước';
+      formStatus.className = 'form-status info';
+      return;
+    }
+    
+    // Disable submit button and show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Đang gửi...';
+    formStatus.textContent = '';
+    formStatus.className = 'form-status';
+    
+    // Get form data
+    const formData = new FormData(form);
+    
+    // Save form data to localStorage
+    saveFormData(form);
+    
+    // Send form data to Google Forms
+    fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLSfyBqxsrJHH9OPo4vyk35IXTJfmars1wSA3Z8lUaYLUSFQpww/formResponse', {
+      method: 'POST',
+      mode: 'no-cors', // This is important to avoid CORS issues with Google Forms
+      body: formData
+    })
+    .then(response => {
+      // Since we're using no-cors, we won't get a proper response
+      // So we'll just assume it was successful
+      
+      // Mark as submitted in localStorage
+      localStorage.setItem('rsvpSubmitted', 'true');
+      
+      // Show success message
+      formStatus.textContent = 'Cảm ơn bạn đã xác nhận tham dự!';
+      formStatus.className = 'form-status success';
+      
+      // Show success state
+      showSuccessState();
+      
+      // Hide submit button
+      submitBtn.style.display = 'none';
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      
+      // Show error message
+      formStatus.textContent = 'Có lỗi xảy ra. Vui lòng thử lại sau.';
+      formStatus.className = 'form-status error';
+      
+      // Re-enable submit button
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Gửi xác nhận';
+    });
+  });
+  
+  // Handle reset form button
+  resetFormBtn.addEventListener('click', function() {
+    // Hide success message
+    formSuccess.classList.add('hidden');
+    
+    // Reset form status
+    formStatus.textContent = '';
+    formStatus.className = 'form-status';
+    
+    // Reset localStorage submission status but keep the form data
+    localStorage.removeItem('rsvpSubmitted');
+    
+    // Show submit button again
+    submitBtn.style.display = 'block';
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Gửi xác nhận';
+    
+    // Update buttons
+    updateAllRsvpButtons(false);
+  });
+  
+  // Function to check if form data is unchanged from previous submission
+  function isFormDataUnchanged() {
+    const savedData = localStorage.getItem('rsvpFormData');
+    if (!savedData) return false;
+    
+    const parsedData = JSON.parse(savedData);
+    const currentData = getCurrentFormData();
+    
+    // Compare text inputs
+    if (parsedData.textInputs) {
+      for (const name in currentData.textInputs) {
+        if (currentData.textInputs[name] !== parsedData.textInputs[name]) {
+          return false;
+        }
+      }
+    }
+    
+    // Compare radio buttons
+    if (parsedData.radioGroups) {
+      for (const name in currentData.radioGroups) {
+        if (currentData.radioGroups[name] !== parsedData.radioGroups[name]) {
+          return false;
+        }
+      }
+    }
+    
+    return true;
+  }
+  
+  // Function to get current form data
+  function getCurrentFormData() {
+    const formData = {};
+    
+    // Get text inputs
+    const textInputs = form.querySelectorAll('input[type="text"], input[type="tel"]');
+    textInputs.forEach(input => {
+      formData[input.name] = input.value;
+    });
+    
+    // Get radio buttons
+    const radioGroups = {};
+    const radioButtons = form.querySelectorAll('input[type="radio"]:checked');
+    radioButtons.forEach(radio => {
+      radioGroups[radio.name] = radio.value;
+    });
+    
+    return {
+      textInputs: formData,
+      radioGroups: radioGroups
+    };
+  }
+  
+  // Function to save form data to localStorage
+  function saveFormData(form) {
+    localStorage.setItem('rsvpFormData', JSON.stringify(getCurrentFormData()));
+  }
+  
+  // Function to restore form data from localStorage
+  function restoreFormData() {
+    const savedData = localStorage.getItem('rsvpFormData');
+    if (!savedData) return;
+    
+    const parsedData = JSON.parse(savedData);
+    
+    // Restore text inputs
+    if (parsedData.textInputs) {
+      Object.keys(parsedData.textInputs).forEach(name => {
+        const input = form.querySelector(`[name="${name}"]`);
+        if (input) input.value = parsedData.textInputs[name];
+      });
+    }
+    
+    // Restore radio buttons
+    if (parsedData.radioGroups) {
+      Object.keys(parsedData.radioGroups).forEach(name => {
+        const radio = form.querySelector(`[name="${name}"][value="${parsedData.radioGroups[name]}"]`);
+        if (radio) radio.checked = true;
+      });
+    }
+    
+    // Validate phone input after restoration
+    const phoneInput = document.getElementById('phone');
+    if (phoneInput.value) {
+      const isValid = /^0\d{9}$/.test(phoneInput.value);
+      if (isValid) {
+        phoneInput.classList.add('valid');
+      } else {
+        phoneInput.classList.add('invalid');
+      }
+    }
+  }
+  
+  // Function to update all RSVP buttons
+  function updateAllRsvpButtons(confirmed) {
+    const allButtons = [openRsvpBtn, ...sectionRsvpBtns];
+    
+    allButtons.forEach(btn => {
+      if (confirmed) {
+        btn.querySelector('.text').textContent = "Đã xác nhận tham dự";
+        btn.classList.add("confirmed");
+        
+        // Change icon to checkmark for confirmed state
+        btn.querySelector('.icon svg').innerHTML = '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>';
+      } else {
+        btn.querySelector('.text').textContent = "Xác nhận tham dự";
+        btn.classList.remove("confirmed");
+      }
+    });
+  }
+  
+  // Update showSuccessState function
+  function showSuccessState() {
+    // Show success message
+    formSuccess.classList.remove('hidden');
+    
+    // Hide submit button
+    submitBtn.style.display = 'none';
+    
+    // Update all buttons
+    updateAllRsvpButtons(true);
+  }
+}
+
+// Add to keyboard event listener
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    // Check if any modal is open
+    const rsvpModal = document.getElementById("rsvpModal");
+    const qrModal = document.getElementById("qrModal");
+    const galleryModal = document.getElementById("galleryModal");
+    
+    if (rsvpModal.style.display === "block") {
+      closeRsvpModal();
+    }
+    
+    if (qrModal.style.display === "block") {
+      closeQrModal();
+    }
+    
+    if (galleryModal.style.display === "block") {
+      closeModal();
+    }
+  }
+});
+
+// Add click outside to close
+window.addEventListener('click', function(event) {
+  const rsvpModal = document.getElementById("rsvpModal");
+  if (event.target === rsvpModal) {
+    closeRsvpModal();
   }
 });

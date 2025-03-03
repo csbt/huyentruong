@@ -1226,3 +1226,350 @@ p {
 .qr-img-container:hover::after {
   opacity: 1;
 }
+
+/* RSVP Form Styles */
+#slide-rsvp .bg-overlay:before {
+  opacity: 0.7;
+}
+
+.rsvp-title {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.rsvp-form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.required {
+  color: #ff6b6b;
+}
+
+.rsvp-form input[type="text"],
+.rsvp-form input[type="tel"] {
+  padding: 12px 15px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.rsvp-form input[type="text"]:focus,
+.rsvp-form input[type="tel"]:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio-label input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.radio-text {
+  position: relative;
+  padding: 8px 15px 8px 40px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.radio-text:before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.radio-label input[type="radio"]:checked + .radio-text {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.radio-label input[type="radio"]:checked + .radio-text:before {
+  border-color: #ffffff;
+}
+
+.radio-label input[type="radio"]:checked + .radio-text:after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.submit-btn, .reset-btn {
+  padding: 12px 30px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover, .reset-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.form-status {
+  text-align: center;
+  min-height: 24px;
+}
+
+.form-status.error {
+  color: #ff6b6b;
+}
+
+.form-status.success {
+  color: #51cf66;
+}
+
+/* Form success message styles */
+.form-success {
+  text-align: center;
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(81, 207, 102, 0.1);
+  border: 1px solid rgba(81, 207, 102, 0.3);
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.form-success p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #51cf66;
+}
+
+.reset-btn {
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reset-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .rsvp-form-container {
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .radio-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .radio-text {
+    width: 100%;
+  }
+}
+
+/* RSVP Button with Icon */
+.rsvp-btn {
+  padding: 12px 25px;
+  border-radius: 5px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.rsvp-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.rsvp-btn.confirmed {
+  background-color: rgba(81, 207, 102, 0.7);
+  border-color: rgba(81, 207, 102, 0.9);
+}
+
+.rsvp-btn.confirmed:hover {
+  background-color: rgba(81, 207, 102, 0.9);
+}
+
+.rsvp-btn .icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rsvp-btn .icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .rsvp-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* RSVP Modal Styles */
+.rsvp-modal {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.rsvp-modal-content {
+  color: white;
+  max-width: 600px;
+  width: 100%;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+  transform: scale(0.9);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal.show .rsvp-modal-content {
+  transform: scale(1);
+}
+
+.rsvp-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.rsvp-form-container {
+  margin: 0 auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  
+  .rsvp-title {
+    font-size: 2rem;
+  }
+}
+
+/* Phone input validation styles */
+.rsvp-form input[type="tel"].valid {
+  border-color: rgba(81, 207, 102, 0.7);
+  background-color: rgba(81, 207, 102, 0.1);
+}
+
+.rsvp-form input[type="tel"].invalid {
+  border-color: rgba(255, 107, 107, 0.7);
+  background-color: rgba(255, 107, 107, 0.1);
+}
+
+/* Placeholder styles */
+.rsvp-form input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* Form status info style */
+.form-status.info {
+  color: #3498db;
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: rgba(52, 152, 219, 0.1);
+  border: 1px solid rgba(52, 152, 219, 0.3);
+}
