@@ -141,9 +141,7 @@ function preloadImages() {
 function checkAllResourcesReady() {
   if (mainPhotoReady && animationFulled) {
     // Thực hiện các hành động khi tất cả ảnh đã sẵn sàng
-    console.log(
-      "Tất cả tài nguyên đã sẵn sàng, có thể chuyển sang màn hình chính"
-    );
+    console.log("Tất cả tài nguyên đã sẵn sàng, có thể chuyển sang màn hình chính");
     // Thêm code để chuyển sang màn hình chính ở đây
     showMainContent();
   }
@@ -176,28 +174,29 @@ audioControlBtn.addEventListener("click", () => {
 
 // Thêm code để kiểm tra và ẩn nút QR khi section slide-4 đang active
 function checkQrSectionVisibility() {
+  const topSection = document.getElementById("slide-1");
   const qrSection = document.getElementById("slide-4");
-  const qrControlBtn = document.querySelector(".qr-control-btn");
 
   // Sử dụng Intersection Observer để theo dõi khi slide-4 hiển thị trong viewport
   const observer = new IntersectionObserver(
     (entries) => {
+      let hidden = false;
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Nếu slide-4 đang hiển thị, ẩn nút QR
-          qrControlBtn.style.opacity = "0";
-          qrControlBtn.style.pointerEvents = "none";
-        } else {
-          // Nếu slide-4 không hiển thị, hiện nút QR
-          qrControlBtn.style.opacity = "1";
-          qrControlBtn.style.pointerEvents = "auto";
-        }
+        hidden = hidden || entry.isIntersecting;
       });
+      if (hidden) {
+        qrControlBtn.style.opacity = "0";
+        qrControlBtn.style.pointerEvents = "none";
+      } else {
+        qrControlBtn.style.opacity = "1";
+        qrControlBtn.style.pointerEvents = "auto";
+      }
     },
     { threshold: 0.3 }
   ); // Kích hoạt khi ít nhất 30% của section hiển thị
 
   // Bắt đầu quan sát section slide-4
+  observer.observe(topSection);
   observer.observe(qrSection);
 }
 
@@ -220,7 +219,6 @@ document.addEventListener("DOMContentLoaded", () => {
   preloadImages();
 
   // Thêm transition cho qr-control-btn để tạo hiệu ứng mượt mà khi ẩn/hiện
-  const qrControlBtn = document.querySelector(".qr-control-btn");
   qrControlBtn.style.transition = "opacity 0.3s ease";
 
   // Kiểm tra visibility của section QR
@@ -230,8 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupQrControlButton();
 
   // gsap
-  let getRatio = (el) =>
-    window.innerHeight / (window.innerHeight + el.offsetHeight);
+  let getRatio = (el) => window.innerHeight / (window.innerHeight + el.offsetHeight);
 
   gsap.utils.toArray("section.hslider").forEach((section, i) => {
     section.bg = section.querySelector(".bg");
@@ -241,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
       horizontalPosition = "65%";
     } else if (i === 3) {
       horizontalPosition = "70%";
-    }else if (i === 4) {
+    } else if (i === 4) {
       horizontalPosition = "80%";
     }
     gsap.fromTo(
@@ -249,16 +246,12 @@ document.addEventListener("DOMContentLoaded", () => {
       {
         backgroundPosition: () =>
           i
-            ? `${horizontalPosition} ${
-                -window.innerHeight * getRatio(section)
-              }px`
+            ? `${horizontalPosition} ${-window.innerHeight * getRatio(section)}px`
             : `${horizontalPosition} 0px`,
       },
       {
         backgroundPosition: () =>
-          `${horizontalPosition} ${
-            window.innerHeight * (1 - getRatio(section))
-          }px`,
+          `${horizontalPosition} ${window.innerHeight * (1 - getRatio(section))}px`,
         ease: "none",
         scrollTrigger: {
           trigger: section,
@@ -376,7 +369,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // ... other existing code
 });
 
-
 // Countdown Timer Function
 function initCountdown() {
   // Set the wedding date - March 9, 2025
@@ -392,9 +384,7 @@ function initCountdown() {
 
     // Time calculations for days, hours, minutes and seconds
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(
-      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
@@ -436,23 +426,23 @@ document.addEventListener("DOMContentLoaded", function () {
 function openModal() {
   const modal = document.getElementById("galleryModal");
   modal.style.display = "block";
-  
+
   // Trigger reflow to ensure transition works
   void modal.offsetWidth;
-  
+
   // Add show class to trigger animations
   modal.classList.add("show");
-  
+
   // Prevent body scrolling when modal is open
   document.body.style.overflow = "hidden";
 }
 
 function closeModal() {
   const modal = document.getElementById("galleryModal");
-  
+
   // Remove show class to trigger closing animations
   modal.classList.remove("show");
-  
+
   // Wait for animation to complete before hiding
   setTimeout(() => {
     modal.style.display = "none";
@@ -501,21 +491,21 @@ function showSlides(n) {
   // Show current slide and activate current thumbnail
   slides[slideIndex - 1].style.display = "flex";
   thumbnails[slideIndex - 1].className += " active";
-  
+
   // Scroll to the active thumbnail
   if (thumbnailRow) {
     const activeThumb = thumbnails[slideIndex - 1];
     const rowWidth = thumbnailRow.offsetWidth;
     const thumbLeft = activeThumb.offsetLeft;
     const thumbWidth = activeThumb.offsetWidth;
-    
+
     // Calculate scroll position to center the thumbnail
-    const scrollPos = thumbLeft - (rowWidth / 2) + (thumbWidth / 2);
-    
+    const scrollPos = thumbLeft - rowWidth / 2 + thumbWidth / 2;
+
     // Scroll the thumbnail row
     thumbnailRow.scrollTo({
       left: scrollPos,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   }
 }
@@ -527,32 +517,32 @@ function openQrModal(imgSrc, name, account, bank) {
   const qrModalName = document.getElementById("qrModalName");
   const qrModalAccount = document.getElementById("qrModalAccount");
   const qrModalBank = document.getElementById("qrModalBank");
-  
+
   // Set the image and info
   qrModalImage.src = imgSrc;
   qrModalName.textContent = name;
   qrModalAccount.textContent = account;
   qrModalBank.textContent = bank;
-  
+
   // Display the modal
   qrModal.style.display = "flex";
-  
+
   // Trigger reflow to ensure transition works
   void qrModal.offsetWidth;
-  
+
   // Add show class to trigger animations
   qrModal.classList.add("show");
-  
+
   // Prevent body scrolling when modal is open
   document.body.style.overflow = "hidden";
 }
 
 function closeQrModal() {
   const qrModal = document.getElementById("qrModal");
-  
+
   // Remove show class to trigger closing animations
   qrModal.classList.remove("show");
-  
+
   // Wait for animation to complete before hiding
   setTimeout(() => {
     qrModal.style.display = "none";
@@ -562,55 +552,45 @@ function closeQrModal() {
 }
 
 // Close modal when clicking outside of it
-window.onclick = function(event) {
+window.onclick = function (event) {
   const qrModal = document.getElementById("qrModal");
   const galleryModal = document.getElementById("galleryModal");
-  
+
   if (event.target === qrModal) {
     closeQrModal();
   }
-  
+
   if (event.target === galleryModal) {
     closeModal();
   }
 };
 
 // Add click event listeners to QR images
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Groom QR
   const groomQrContainer = document.querySelector(".qr-container:nth-child(1) .qr-img-container");
-  groomQrContainer.addEventListener("click", function() {
-    openQrModal(
-      "public/img/groom-qr.png", 
-      "Ngô Xuân Trường", 
-      "0491000183537", 
-      "Vietcombank"
-    );
+  groomQrContainer.addEventListener("click", function () {
+    openQrModal("public/img/groom-qr.png", "Ngô Xuân Trường", "0491000183537", "Vietcombank");
   });
-  
+
   // Bride QR
   const brideQrContainer = document.querySelector(".qr-container:nth-child(2) .qr-img-container");
-  brideQrContainer.addEventListener("click", function() {
-    openQrModal(
-      "public/img/bride-qr.png", 
-      "Hoàng Thị Huyền", 
-      "101099996789", 
-      "Techcombank"
-    );
+  brideQrContainer.addEventListener("click", function () {
+    openQrModal("public/img/bride-qr.png", "Hoàng Thị Huyền", "101099996789", "Techcombank");
   });
 });
 
 // Add keyboard support for closing modals
-document.addEventListener('keydown', function(event) {
-  if (event.key === 'Escape') {
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
     // Check if either modal is open
     const qrModal = document.getElementById("qrModal");
     const galleryModal = document.getElementById("galleryModal");
-    
+
     if (qrModal.style.display === "block") {
       closeQrModal();
     }
-    
+
     if (galleryModal.style.display === "block") {
       closeModal();
     }
@@ -621,17 +601,17 @@ document.addEventListener('keydown', function(event) {
 function openRsvpModal() {
   const rsvpModal = document.getElementById("rsvpModal");
   rsvpModal.style.display = "block";
-  
+
   // Add show class for animation
   setTimeout(() => {
     rsvpModal.classList.add("show");
-    
+
     // Auto focus on fullName input after modal is shown
     setTimeout(() => {
-      document.getElementById('fullName').focus();
+      document.getElementById("fullName").focus();
     }, 300);
   }, 10);
-  
+
   // Prevent body scrolling
   document.body.style.overflow = "hidden";
 }
@@ -639,7 +619,7 @@ function openRsvpModal() {
 function closeRsvpModal() {
   const rsvpModal = document.getElementById("rsvpModal");
   rsvpModal.classList.remove("show");
-  
+
   // Wait for animation to complete before hiding
   setTimeout(() => {
     rsvpModal.style.display = "none";
@@ -650,165 +630,169 @@ function closeRsvpModal() {
 
 // Update setupRSVPForm function
 function setupRSVPForm() {
-  const form = document.getElementById('rsvpForm');
-  const formStatus = document.getElementById('formStatus');
-  const formSuccess = document.getElementById('formSuccess');
-  const resetFormBtn = document.getElementById('resetFormBtn');
-  const submitBtn = document.getElementById('submitBtn');
-  const openRsvpBtn = document.getElementById('openRsvpBtn');
-  const sectionRsvpBtns = document.querySelectorAll('.section-rsvp-btn');
-  const phoneInput = document.getElementById('phone');
-  
+  const form = document.getElementById("rsvpForm");
+  const formStatus = document.getElementById("formStatus");
+  const formSuccess = document.getElementById("formSuccess");
+  const resetFormBtn = document.getElementById("resetFormBtn");
+  const submitBtn = document.getElementById("submitBtn");
+  const openRsvpBtn = document.getElementById("openRsvpBtn");
+  const sectionRsvpBtns = document.querySelectorAll(".section-rsvp-btn");
+  const phoneInput = document.getElementById("phone");
+
   // Setup phone input validation
-  phoneInput.addEventListener('input', function(e) {
+  phoneInput.addEventListener("input", function (e) {
     // Remove any non-digit characters
-    let value = e.target.value.replace(/\D/g, '');
-    
+    let value = e.target.value.replace(/\D/g, "");
+
     // Ensure it starts with 0
-    if (value.length > 0 && value[0] !== '0') {
-      value = '0' + value.substring(0, 9);
+    if (value.length > 0 && value[0] !== "0") {
+      value = "0" + value.substring(0, 9);
     }
-    
+
     // Limit to 10 digits (Vietnamese phone numbers)
     if (value.length > 10) {
       value = value.substring(0, 10);
     }
-    
+
     // Update the input value
     e.target.value = value;
-    
+
     // Validate the pattern
     const isValid = /^0\d{9}$/.test(value);
-    
+
     // Visual feedback
     if (value.length > 0) {
       if (isValid) {
-        phoneInput.classList.remove('invalid');
-        phoneInput.classList.add('valid');
+        phoneInput.classList.remove("invalid");
+        phoneInput.classList.add("valid");
       } else {
-        phoneInput.classList.remove('valid');
-        phoneInput.classList.add('invalid');
+        phoneInput.classList.remove("valid");
+        phoneInput.classList.add("invalid");
       }
     } else {
-      phoneInput.classList.remove('valid', 'invalid');
+      phoneInput.classList.remove("valid", "invalid");
     }
   });
-  
+
   // Check if user has already submitted the form
-  const hasSubmitted = localStorage.getItem('rsvpSubmitted');
-  if (hasSubmitted === 'true') {
+  const hasSubmitted = localStorage.getItem("rsvpSubmitted");
+  if (hasSubmitted === "true") {
     // Update all buttons text and class if already submitted
     updateAllRsvpButtons(true);
-    
+
     // Show success message but don't disable form
-    formSuccess.classList.remove('hidden');
-    
+    formSuccess.classList.remove("hidden");
+
     // Hide submit button when showing success message
-    submitBtn.style.display = 'none';
-    
+    submitBtn.style.display = "none";
+
     // Restore form data from localStorage
     restoreFormData();
   }
-  
+
   // Setup open modal button
-  openRsvpBtn.addEventListener('click', openRsvpModal);
-  
+  openRsvpBtn.addEventListener("click", openRsvpModal);
+
   // Handle form submission
-  form.addEventListener('submit', function(e) {
+  form.addEventListener("submit", function (e) {
     e.preventDefault();
-    
+
     // Validate phone number
-    const phoneInput = document.getElementById('phone');
+    const phoneInput = document.getElementById("phone");
     const phoneValue = phoneInput.value;
     const isValidPhone = /^0\d{9}$/.test(phoneValue);
-    
+
     if (!isValidPhone) {
-      formStatus.textContent = 'Vui lòng nhập số điện thoại Việt Nam hợp lệ (10 số, bắt đầu bằng số 0)';
-      formStatus.className = 'form-status error';
+      formStatus.textContent =
+        "Vui lòng nhập số điện thoại Việt Nam hợp lệ (10 số, bắt đầu bằng số 0)";
+      formStatus.className = "form-status error";
       phoneInput.focus();
       return;
     }
-    
+
     // Check if the form data is the same as previously submitted
-    if (hasSubmitted === 'true' && isFormDataUnchanged()) {
-      formStatus.textContent = 'Thông tin không thay đổi so với lần gửi trước';
-      formStatus.className = 'form-status info';
+    if (hasSubmitted === "true" && isFormDataUnchanged()) {
+      formStatus.textContent = "Thông tin không thay đổi so với lần gửi trước";
+      formStatus.className = "form-status info";
       return;
     }
-    
+
     // Disable submit button and show loading state
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Đang gửi...';
-    formStatus.textContent = '';
-    formStatus.className = 'form-status';
-    
+    submitBtn.textContent = "Đang gửi...";
+    formStatus.textContent = "";
+    formStatus.className = "form-status";
+
     // Get form data
     const formData = new FormData(form);
-    
+
     // Save form data to localStorage
     saveFormData(form);
-    
+
     // Send form data to Google Forms
-    fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLSfyBqxsrJHH9OPo4vyk35IXTJfmars1wSA3Z8lUaYLUSFQpww/formResponse', {
-      method: 'POST',
-      mode: 'no-cors', // This is important to avoid CORS issues with Google Forms
-      body: formData
-    })
-    .then(response => {
-      // Since we're using no-cors, we won't get a proper response
-      // So we'll just assume it was successful
-      
-      // Mark as submitted in localStorage
-      localStorage.setItem('rsvpSubmitted', 'true');
-      
-      // Show success state
-      showSuccessState();
-      
-      // Hide submit button
-      submitBtn.style.display = 'none';
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      
-      // Show error message
-      formStatus.textContent = 'Có lỗi xảy ra. Vui lòng thử lại sau.';
-      formStatus.className = 'form-status error';
-      
-      // Re-enable submit button
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Gửi xác nhận';
-    });
+    fetch(
+      "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfyBqxsrJHH9OPo4vyk35IXTJfmars1wSA3Z8lUaYLUSFQpww/formResponse",
+      {
+        method: "POST",
+        mode: "no-cors", // This is important to avoid CORS issues with Google Forms
+        body: formData,
+      }
+    )
+      .then((response) => {
+        // Since we're using no-cors, we won't get a proper response
+        // So we'll just assume it was successful
+
+        // Mark as submitted in localStorage
+        localStorage.setItem("rsvpSubmitted", "true");
+
+        // Show success state
+        showSuccessState();
+
+        // Hide submit button
+        submitBtn.style.display = "none";
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+
+        // Show error message
+        formStatus.textContent = "Có lỗi xảy ra. Vui lòng thử lại sau.";
+        formStatus.className = "form-status error";
+
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Gửi xác nhận";
+      });
   });
-  
+
   // Handle reset form button
-  resetFormBtn.addEventListener('click', function() {
+  resetFormBtn.addEventListener("click", function () {
     // Hide success message
-    formSuccess.classList.add('hidden');
-    
+    formSuccess.classList.add("hidden");
+
     // Reset form status
-    formStatus.textContent = '';
-    formStatus.className = 'form-status';
-    
+    formStatus.textContent = "";
+    formStatus.className = "form-status";
+
     // Reset localStorage submission status but keep the form data
-    localStorage.removeItem('rsvpSubmitted');
-    
+    localStorage.removeItem("rsvpSubmitted");
+
     // Show submit button again
-    submitBtn.style.display = 'block';
+    submitBtn.style.display = "block";
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Gửi xác nhận';
-    
+    submitBtn.textContent = "Gửi xác nhận";
+
     // Update buttons
     updateAllRsvpButtons(false);
   });
-  
+
   // Function to check if form data is unchanged from previous submission
   function isFormDataUnchanged() {
-    const savedData = localStorage.getItem('rsvpFormData');
+    const savedData = localStorage.getItem("rsvpFormData");
     if (!savedData) return false;
-    
+
     const parsedData = JSON.parse(savedData);
     const currentData = getCurrentFormData();
-    
+
     // Compare text inputs
     if (parsedData.textInputs) {
       for (const name in currentData.textInputs) {
@@ -817,7 +801,7 @@ function setupRSVPForm() {
         }
       }
     }
-    
+
     // Compare radio buttons
     if (parsedData.radioGroups) {
       for (const name in currentData.radioGroups) {
@@ -826,120 +810,123 @@ function setupRSVPForm() {
         }
       }
     }
-    
+
     return true;
   }
-  
+
   // Function to get current form data
   function getCurrentFormData() {
     const formData = {};
-    
+
     // Get text inputs
     const textInputs = form.querySelectorAll('input[type="text"], input[type="tel"]');
-    textInputs.forEach(input => {
+    textInputs.forEach((input) => {
       formData[input.name] = input.value;
     });
-    
+
     // Get radio buttons
     const radioGroups = {};
     const radioButtons = form.querySelectorAll('input[type="radio"]:checked');
-    radioButtons.forEach(radio => {
+    radioButtons.forEach((radio) => {
       radioGroups[radio.name] = radio.value;
     });
-    
+
     return {
       textInputs: formData,
-      radioGroups: radioGroups
+      radioGroups: radioGroups,
     };
   }
-  
+
   // Function to save form data to localStorage
   function saveFormData(form) {
-    localStorage.setItem('rsvpFormData', JSON.stringify(getCurrentFormData()));
+    localStorage.setItem("rsvpFormData", JSON.stringify(getCurrentFormData()));
   }
-  
+
   // Function to restore form data from localStorage
   function restoreFormData() {
-    const savedData = localStorage.getItem('rsvpFormData');
+    const savedData = localStorage.getItem("rsvpFormData");
     if (!savedData) return;
-    
+
     const parsedData = JSON.parse(savedData);
-    
+
     // Restore text inputs
     if (parsedData.textInputs) {
-      Object.keys(parsedData.textInputs).forEach(name => {
+      Object.keys(parsedData.textInputs).forEach((name) => {
         const input = form.querySelector(`[name="${name}"]`);
         if (input) input.value = parsedData.textInputs[name];
       });
     }
-    
+
     // Restore radio buttons
     if (parsedData.radioGroups) {
-      Object.keys(parsedData.radioGroups).forEach(name => {
-        const radio = form.querySelector(`[name="${name}"][value="${parsedData.radioGroups[name]}"]`);
+      Object.keys(parsedData.radioGroups).forEach((name) => {
+        const radio = form.querySelector(
+          `[name="${name}"][value="${parsedData.radioGroups[name]}"]`
+        );
         if (radio) radio.checked = true;
       });
     }
-    
+
     // Validate phone input after restoration
-    const phoneInput = document.getElementById('phone');
+    const phoneInput = document.getElementById("phone");
     if (phoneInput.value) {
       const isValid = /^0\d{9}$/.test(phoneInput.value);
       if (isValid) {
-        phoneInput.classList.add('valid');
+        phoneInput.classList.add("valid");
       } else {
-        phoneInput.classList.add('invalid');
+        phoneInput.classList.add("invalid");
       }
     }
   }
-  
+
   // Function to update all RSVP buttons
   function updateAllRsvpButtons(confirmed) {
     const allButtons = [openRsvpBtn, ...sectionRsvpBtns];
-    
-    allButtons.forEach(btn => {
+
+    allButtons.forEach((btn) => {
       if (confirmed) {
-        btn.querySelector('.text').textContent = "Đã xác nhận tham dự";
+        btn.querySelector(".text").textContent = "Đã xác nhận tham dự";
         btn.classList.add("confirmed");
-        
+
         // Change icon to checkmark for confirmed state
-        btn.querySelector('.icon svg').innerHTML = '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>';
+        btn.querySelector(".icon svg").innerHTML =
+          '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>';
       } else {
-        btn.querySelector('.text').textContent = "Xác nhận tham dự";
+        btn.querySelector(".text").textContent = "Xác nhận tham dự";
         btn.classList.remove("confirmed");
       }
     });
   }
-  
+
   // Update showSuccessState function
   function showSuccessState() {
     // Show success message
-    formSuccess.classList.remove('hidden');
-    
+    formSuccess.classList.remove("hidden");
+
     // Hide submit button
-    submitBtn.style.display = 'none';
-    
+    submitBtn.style.display = "none";
+
     // Update all buttons
     updateAllRsvpButtons(true);
   }
 }
 
 // Add to keyboard event listener
-document.addEventListener('keydown', function(event) {
-  if (event.key === 'Escape') {
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
     // Check if any modal is open
     const rsvpModal = document.getElementById("rsvpModal");
     const qrModal = document.getElementById("qrModal");
     const galleryModal = document.getElementById("galleryModal");
-    
+
     if (rsvpModal.style.display === "block") {
       closeRsvpModal();
     }
-    
+
     if (qrModal.style.display === "block") {
       closeQrModal();
     }
-    
+
     if (galleryModal.style.display === "block") {
       closeModal();
     }
@@ -947,7 +934,7 @@ document.addEventListener('keydown', function(event) {
 });
 
 // Add click outside to close
-window.addEventListener('click', function(event) {
+window.addEventListener("click", function (event) {
   const rsvpModal = document.getElementById("rsvpModal");
   if (event.target === rsvpModal) {
     closeRsvpModal();
